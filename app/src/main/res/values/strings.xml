@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Futbol</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <!-- Layout -->
+    <string name="nuevo_jugador">Jugador</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_telefono">Teléfono</string>
+    <string name="hint_fnac">Fecha de nacimiento</string>
+    <string name="bt_alta">Alta</string>
+    <string name="nuevo_partido">Partido</string>
+    <string name="hint_id">Jugador</string>
+    <string name="hint_valoracion">Valoración</string>
+    <string name="hint_contrincante">Contrincante</string>
+    <string name="bt_nuevo">Nuevo</string>
+
+
+</resources>
