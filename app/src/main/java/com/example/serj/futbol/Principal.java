@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Principal extends Activity {
@@ -98,76 +97,88 @@ public class Principal extends Activity {
     }
 
     public void altaJugador (View v) {
-        // Recoger datos campos de texto
-        String nombre, telefono, fnac;
-        nombre = etNombre.getText().toString();
-        telefono = etTelefono.getText().toString();
-        fnac = etFecha.getText().toString();
-        // Comprobar jugador es UNIQUE: SELECT *, COUNT (*) FROM jugador WHERE nombre='nombre'
-        Cursor c = gj.rawQuery(getString(R.string.query_jugador_unique) + nombre + "'");
-        c.moveToFirst();
-        int count = c.getInt(0);
-        c.close();
-        if(count < 1) {
-            // Insertar jugador
-            Jugador j = new Jugador(nombre, telefono, fnac);
-            long id = gj.insert(j);
-            adj.getCursor().close();
-            adj.changeCursor(gj.getCursor());
-            // Reinicializar campos de texto
-            etNombre.setText("");
-            etTelefono.setText("");
-            etFecha.setText("");
-            adj.notifyDataSetChanged();
-            Toast.makeText(this, getString(R.string.tostada_insertado), Toast.LENGTH_SHORT).show();
+        if (!etNombre.getText().toString().isEmpty() &&
+                !etTelefono.getText().toString().isEmpty() &&
+                !etFecha.getText().toString().isEmpty()){
+            // Recoger datos campos de texto
+            String nombre, telefono, fnac;
+            nombre = etNombre.getText().toString();
+            telefono = etTelefono.getText().toString();
+            fnac = etFecha.getText().toString();
+            // Comprobar jugador es UNIQUE: SELECT *, COUNT (*) FROM jugador WHERE nombre='nombre'
+            Cursor c = gj.rawQuery(getString(R.string.query_jugador_unique) + nombre + "'");
+            c.moveToFirst();
+            int count = c.getInt(0);
+            c.close();
+            if(count < 1) {
+                // Insertar jugador
+                Jugador j = new Jugador(nombre, telefono, fnac);
+                long id = gj.insert(j);
+                adj.getCursor().close();
+                adj.changeCursor(gj.getCursor());
+                // Reinicializar campos de texto
+                etNombre.setText("");
+                etTelefono.setText("");
+                etFecha.setText("");
+                adj.notifyDataSetChanged();
+                Toast.makeText(this, getString(R.string.tostada_insertado), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.tostada_yainsertado), Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(this, getString(R.string.tostada_yainsertado), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tostada_campos), Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public void nuevoPartido (View v) {
-        // Recoger datos campos de texto
-        Float valoracion;
-        String jugador, contrincante;
-        jugador = etJugador.getText().toString();
-        valoracion = Float.valueOf(etValoracion.getText().toString());
-        contrincante = etContrincante.getText().toString();
-        // Ver si hay jugadores insertados
-        Cursor c = gj.rawQuery(getString(R.string.query_jugador_insertado));
-        c.moveToFirst();
-        int count = c.getInt(0);
-        c.close();
-        // Comprobar contrincante es UNIQUE: SELECT *, COUNT (*) FROM partido WHERE contrincante ='contrincante'
-        c = gp.rawQuery(getString(R.string.query_contrincante_unique)+contrincante+"'");
-        c.moveToFirst();
-        int contrincantes = c.getInt(0);
-        c.close();
-        if (count > 0 ){
-            if(contrincantes < 1){
-                // Insertar partido
-                // SELECT _ID FROM JUGADOR WHERE NOMBRE = jugador
-                long idjugador = gj.select(jugador);
-                if(idjugador != -1) {
-                    Partido p = new Partido(idjugador, valoracion, contrincante);
-                    long id = gp.insert(p);
-                    adp.getCursor().close();
-                    adp.changeCursor(gp.getCursor());
-                    Toast.makeText(this, getString(R.string.tostada_insertado2), Toast.LENGTH_SHORT).show();
+        if (!etJugador.getText().toString().isEmpty() &&
+                !etValoracion.getText().toString().isEmpty() &&
+                !etContrincante.getText().toString().isEmpty()){
+            // Recoger datos campos de texto
+            Float valoracion;
+            String jugador, contrincante;
+            jugador = etJugador.getText().toString();
+            valoracion = Float.valueOf(etValoracion.getText().toString());
+            contrincante = etContrincante.getText().toString();
+            // Ver si hay jugadores insertados: SELECT *, COUNT (*) FROM jugador
+            Cursor c = gj.rawQuery(getString(R.string.query_jugador_insertado));
+            c.moveToFirst();
+            int count = c.getInt(0);
+            c.close();
+            // Comprobar contrincante es UNIQUE: SELECT *, COUNT (*) FROM partido WHERE contrincante ='contrincante'
+            c = gp.rawQuery(getString(R.string.query_contrincante_unique)+contrincante+"'");
+            c.moveToFirst();
+            int contrincantes = c.getInt(0);
+            c.close();
+            if (count > 0 ){
+                if(contrincantes < 1){
+                    // Insertar partido
+                    // SELECT _ID FROM JUGADOR WHERE NOMBRE = jugador
+                    long idjugador = gj.select(jugador);
+                    if(idjugador != -1) {
+                        Partido p = new Partido(idjugador, valoracion, contrincante);
+                        long id = gp.insert(p);
+                        adp.getCursor().close();
+                        adp.changeCursor(gp.getCursor());
+                        Toast.makeText(this, getString(R.string.tostada_insertado2), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, getString(R.string.tostada_noexiste), Toast.LENGTH_SHORT).show();
+                    }
+                    // Reinicializar campos de texto
+                    etJugador.setText("");
+                    etValoracion.setText("");
+                    etContrincante.setText("");
+                    adp.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(this, getString(R.string.tostada_noexiste), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.tostada_insertado3), Toast.LENGTH_SHORT).show();
                 }
-                // Reinicializar campos de texto
-                etJugador.setText("");
-                etValoracion.setText("");
-                etContrincante.setText("");
-                adp.notifyDataSetChanged();
             } else {
-                Toast.makeText(this, getString(R.string.tostada_insertado3), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.tostada_nojugadores), Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(this, getString(R.string.tostada_nojugadores), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tostada_campos), Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public boolean borrarJugador(final int pos){

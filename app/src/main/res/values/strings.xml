@@ -16,6 +16,7 @@
     <string name="tostada_nojugadores">Inserte primero jugadores</string>
     <string name="tostada_valoracion">MEDIA VALORACIÓN: </string>
     <string name="tostada_nopartidos">No hay partidos de ese jugador</string>
+    <string name="tostada_campos">Debe rellenar todos los campos</string>
     <string name="si">Si</string>
     <string name="no">No</string>
     <!-- Layout -->
