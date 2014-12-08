@@ -103,8 +103,8 @@ public class Principal extends Activity {
         nombre = etNombre.getText().toString();
         telefono = etTelefono.getText().toString();
         fnac = etFecha.getText().toString();
-        // Comprobar jugador UNIQUE
-        Cursor c = gj.rawQuery("SELECT *, COUNT (*) FROM jugador WHERE nombre='" + nombre + "'");
+        // Comprobar jugador es UNIQUE: SELECT *, COUNT (*) FROM jugador WHERE nombre='nombre'
+        Cursor c = gj.rawQuery(getString(R.string.query_jugador_unique) + nombre + "'");
         c.moveToFirst();
         int count = c.getInt(0);
         c.close();
@@ -119,8 +119,9 @@ public class Principal extends Activity {
             etTelefono.setText("");
             etFecha.setText("");
             adj.notifyDataSetChanged();
+            Toast.makeText(this, getString(R.string.tostada_insertado), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Ya ha insertado ese jugador", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tostada_yainsertado), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -132,12 +133,12 @@ public class Principal extends Activity {
         valoracion = Float.valueOf(etValoracion.getText().toString());
         contrincante = etContrincante.getText().toString();
         // Ver si hay jugadores insertados
-        Cursor c = gj.rawQuery("SELECT *, COUNT (*) FROM jugador");
+        Cursor c = gj.rawQuery(getString(R.string.query_jugador_insertado));
         c.moveToFirst();
         int count = c.getInt(0);
         c.close();
-        // Ver si el contrincante ya se ha insertado con ese jugador
-        c = gp.rawQuery("SELECT *, COUNT (*) FROM partido WHERE contrincante ='"+contrincante+"'");
+        // Comprobar contrincante es UNIQUE: SELECT *, COUNT (*) FROM partido WHERE contrincante ='contrincante'
+        c = gp.rawQuery(getString(R.string.query_contrincante_unique)+contrincante+"'");
         c.moveToFirst();
         int contrincantes = c.getInt(0);
         c.close();
@@ -151,9 +152,9 @@ public class Principal extends Activity {
                     long id = gp.insert(p);
                     adp.getCursor().close();
                     adp.changeCursor(gp.getCursor());
-                    Toast.makeText(this, "Partido insertado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.tostada_insertado2), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "El jugador introducido no existe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.tostada_noexiste), Toast.LENGTH_SHORT).show();
                 }
                 // Reinicializar campos de texto
                 etJugador.setText("");
@@ -161,10 +162,10 @@ public class Principal extends Activity {
                 etContrincante.setText("");
                 adp.notifyDataSetChanged();
             } else {
-                Toast.makeText(this, "Ya ha insertado ese contrincante", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.tostada_insertado3), Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(this, "Inserte primero jugadores", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tostada_nojugadores), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -233,9 +234,9 @@ public class Principal extends Activity {
         float media = (float) 0;
         if(cuenta > 0) {
             media = sumaValoracion/cuenta;
-            Toast.makeText(this, "MEDIA VALORACIÓN: " + String.valueOf(media), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tostada_valoracion) + String.valueOf(media), Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "No hay partidos de ese jugador", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.tostada_nopartidos), Toast.LENGTH_SHORT).show();
         }
     }
 }
