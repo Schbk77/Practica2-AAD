@@ -31,8 +31,8 @@
     <string name="hint_contrincante">Contrincante</string>
     <string name="bt_nuevo">Nuevo</string>
     <!-- Query -->
-    <string name="query_jugador_unique">SELECT *, COUNT (*) FROM jugador WHERE nombre='</string>
-    <string name="query_contrincante_unique">SELECT *, COUNT (*) FROM partido WHERE contrincante ='</string>
+    <string name="query_jugador_unique">SELECT *, COUNT (*) FROM jugador WHERE nombre=\'</string>
+    <string name="query_contrincante_unique">SELECT *, COUNT (*) FROM partido WHERE contrincante =\'</string>
     <string name="query_jugador_insertado">SELECT *, COUNT (*) FROM jugador</string>
 
 </resources>
