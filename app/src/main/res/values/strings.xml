@@ -4,6 +4,12 @@
     <string name="app_name">Futbol</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="dialog_message_jugador">¿Está seguro de que desea borrar el jugador?</string>
+    <string name="dialog_title_jugador">Borrar jugador</string>
+    <string name="dialog_message_partido">¿Está seguro de que desea borrar el partido?</string>
+    <string name="dialog_title_partido">Borrar partido</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
     <!-- Layout -->
     <string name="nuevo_jugador">Jugador</string>
     <string name="hint_nombre">Nombre</string>
@@ -15,6 +21,5 @@
     <string name="hint_valoracion">Valoración</string>
     <string name="hint_contrincante">Contrincante</string>
     <string name="bt_nuevo">Nuevo</string>
-
 
 </resources>

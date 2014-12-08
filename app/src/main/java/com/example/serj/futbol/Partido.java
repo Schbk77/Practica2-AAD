@@ -18,6 +18,13 @@ public class Partido implements Serializable{
         this.contrincante = contrincante;
     }
 
+    public Partido(long idJugador, float valoracion, String contrincante) {
+        this.id = 0;
+        this.idJugador = idJugador;
+        this.valoracion = valoracion;
+        this.contrincante = contrincante;
+    }
+
     public long getId() {
         return id;
     }

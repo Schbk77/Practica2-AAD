@@ -36,7 +36,7 @@
                 <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/editText"
+                    android:id="@+id/etNombre"
                     android:hint="@string/hint_nombre" />
 
                 <EditText
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:ems="10"
-                    android:id="@+id/editText2"
+                    android:id="@+id/etTelefono"
                     android:hint="@string/hint_telefono" />
 
                 <EditText
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="date"
                     android:ems="10"
-                    android:id="@+id/editText3"
+                    android:id="@+id/etFecha"
                     android:hint="@string/hint_fnac" />
 
                 <Button
@@ -60,7 +60,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/bt_alta"
                     android:id="@+id/button"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:onClick="altaJugador"/>
             </LinearLayout>
         </ScrollView>
 
@@ -87,7 +88,7 @@
                 <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/editText4"
+                    android:id="@+id/etJugador"
                     android:hint="@string/hint_id" />
 
                 <EditText
@@ -95,13 +96,13 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
-                    android:id="@+id/editText5"
+                    android:id="@+id/etValoracion"
                     android:hint="@string/hint_valoracion" />
 
                 <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/editText6"
+                    android:id="@+id/etContrincante"
                     android:hint="@string/hint_contrincante" />
 
                 <Button
@@ -109,7 +110,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/bt_nuevo"
                     android:id="@+id/button2"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:onClick="nuevoPartido"/>
             </LinearLayout>
         </ScrollView>
 
@@ -125,13 +127,13 @@
         <ListView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/listView"
+            android:id="@+id/lvJugador"
             android:layout_weight="1" />
 
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listView2"
+            android:id="@+id/lvPartido"
             android:layout_weight="1" />
     </LinearLayout>
 </LinearLayout>

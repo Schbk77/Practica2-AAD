@@ -18,6 +18,13 @@ public class Jugador implements Serializable, Comparable<Jugador>{
         this.fnac = fnac;
     }
 
+    public Jugador(String nombre, String telefono, String fnac) {
+        this.id = 0;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.fnac = fnac;
+    }
+
     public long getId() {
         return id;
     }

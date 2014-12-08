@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class Ayudante extends SQLiteOpenHelper{
 
     public static final String DATABASE_NAME = "futbol.sqlite";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     public Ayudante (Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -26,23 +26,23 @@ public class Ayudante extends SQLiteOpenHelper{
 
         query = "CREATE TABLE " + Contrato.TablaPartido.TABLA + " (" +
                 Contrato.TablaPartido._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                Contrato.TablaPartido.IDJUGADOR + " INTEGER UNIQUE, " +
+                Contrato.TablaPartido.IDJUGADOR + " INTEGER, " +
                 Contrato.TablaPartido.VALORACION + " FLOAT, " +
-                Contrato.TablaPartido.CONTRINCANTE + " TEXT UNIQUE)";
+                Contrato.TablaPartido.CONTRINCANTE + " TEXT)";
 
         db.execSQL(query);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // 1 - CREAR TABLAS DE RESPALDO
+
+        // 1 - CREAR TABLA DE RESPALDO
         String query = "CREATE TABLE RESPALDO" + Contrato.TablaJugador.TABLA + " (" +
                 Contrato.TablaJugador._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Contrato.TablaJugador.NOMBRE + " TEXT UNIQUE, " +
                 Contrato.TablaJugador.TELEFONO + " TEXT, " +
                 Contrato.TablaPartido.VALORACION + " FLOAT, " +
                 Contrato.TablaJugador.FNAC + " TEXT)";
-
         db.execSQL(query);
 
         // 2 - COPIAR DATOS DE TABLA ORIGINAL A TABLA DE RESPALDO
@@ -64,7 +64,6 @@ public class Ayudante extends SQLiteOpenHelper{
                 Contrato.TablaJugador.NOMBRE + "," +
                 Contrato.TablaJugador.TELEFONO + "," +
                 Contrato.TablaJugador.FNAC + " FROM RESPALDO";
-
         db.execSQL(query);
 
         query = "INSERT INTO " + Contrato.TablaPartido.TABLA + " (" +
@@ -76,13 +75,12 @@ public class Ayudante extends SQLiteOpenHelper{
                 "R."+ Contrato.TablaJugador.NOMBRE + "=J." + Contrato.TablaJugador.NOMBRE +
                 " AND R." + Contrato.TablaJugador.TELEFONO + "=J." + Contrato.TablaJugador.TELEFONO +
                 " AND R." + Contrato.TablaJugador.FNAC + "=J." + Contrato.TablaJugador.FNAC;
-
         db.execSQL(query);
 
         query = "UPDATE " + Contrato.TablaPartido.TABLA + " SET " + Contrato.TablaPartido.CONTRINCANTE + "=''";
         db.execSQL(query);
 
-        // 6 - BORRAR TABLAS DE RESPALDO
+        // 6 - BORRAR TABLA DE RESPALDO
         query = "DROP TABLE RESPALDO";
         db.execSQL(query);
     }
